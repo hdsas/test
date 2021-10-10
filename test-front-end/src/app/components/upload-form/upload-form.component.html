@@ -1,0 +1,28 @@
+<form>
+
+    <mat-form-field>
+        <div>
+            <h2 class="center">Upload File</h2>
+            <div class="error">{{errorMessage}}</div>
+            <mat-toolbar>
+                <!-- Display files names -->
+                <input matInput [(ngModel)]="file.name" readonly name="name" />
+
+                <!-- Browse Button -->
+                <button mat-raised-button (click)="fileInput.click()">
+                    Browse File
+                </button>
+            </mat-toolbar>
+
+            <!-- Fetch selected filed on change -->
+            <input type="file" #fileInput (change)="browseFile($event)" name="browseFile" accept="text/xml,.csv"
+                hidden />
+        </div>
+    </mat-form-field>
+    <div>
+        <button class="upload-btn" mat-raised-button color="primary" (click)="uploadFile()" [disabled]="!valid">
+            Upload
+        </button>
+    </div>
+
+</form>
