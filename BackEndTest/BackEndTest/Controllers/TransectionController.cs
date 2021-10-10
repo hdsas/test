@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BackEndTest.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -13,11 +14,13 @@ namespace BackEndTest.Controllers
     public class TransectionController : Controller
     {
         private readonly ILogger<TransectionController> _logger;
+        private readonly ICsvService _csvService;
         private readonly string[] FileExtension = { ".CSV", ".XML" };
 
-        public TransectionController(ILogger<TransectionController> logger)
+        public TransectionController(ILogger<TransectionController> logger , ICsvService csvService)
         {
             _logger = logger;
+            _csvService = csvService;
         }
         public IActionResult Index()
         {
@@ -31,6 +34,12 @@ namespace BackEndTest.Controllers
             if (!FileExtension.Contains(extension)) {
                 return BadRequest("Unknown Format");
             }
+
+
+            if (extension == ".CSV" && !_csvService.ExtractData(file,out string errorMessage)) {
+                return BadRequest(errorMessage);
+            }
+               
 
             return Ok();
         }
