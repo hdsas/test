@@ -1,9 +1,10 @@
-<form>
+<form  >
 
     <mat-form-field>
         <div>
             <h2 class="center">Upload File</h2>
             <div class="error">{{errorMessage}}</div>
+            <div class="success" *ngIf="isSuccess" >Upload File Successfully</div>
             <mat-toolbar>
                 <!-- Display files names -->
                 <input matInput [(ngModel)]="file.name" readonly name="name" />

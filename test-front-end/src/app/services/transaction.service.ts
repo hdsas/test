@@ -6,13 +6,17 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class TransectionService {
+export class TransactionService {
 
   constructor(private http: HttpClient) { }
 
 
   upload(formData: any): Observable<any> {
     return this.http.post(`${environment.apiUrl}upload`, formData);
+  }
+
+  search(form:any):Observable<any>{
+     return this.http.post(`${environment.apiUrl}search`, form);
   }
 
 }

@@ -1,4 +1,6 @@
 ﻿
+using BackEndTest.Models;
+using BackEndTest.Models.Requests;
 using BackEndTest.RepositoryModels;
 using System;
 using System.Collections.Generic;
@@ -12,5 +14,7 @@ namespace BackEndTest.Services
         Transaction Add(Transaction transaction);
 
         IEnumerable<Transaction> Adds(IEnumerable<Transaction> transaction);
+
+        IEnumerable<TransactionModel> Search(SearchRequest search);
     }
 }

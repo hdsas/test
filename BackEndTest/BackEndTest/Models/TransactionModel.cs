@@ -12,14 +12,7 @@ namespace BackEndTest.Models
       
         public string Id { get; set; }
 
-
-        public decimal Amount { get; set; }
-
-
-        public string CurrenctCode { get; set; }
-
-
-        public DateTime TransectionDate { get; set; }
+        public string Payment { get; set; }
 
         public string Status { get; set; }
     }

@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { TransectionService } from 'src/app/services/transection.service';
+import { TransactionService } from 'src/app/services/transaction.service';
 
 @Component({
   selector: 'app-upload-form',
@@ -13,9 +13,10 @@ export class UploadFormComponent implements OnInit {
   file: any = {};
   errorMessage: string = '';
   valid: boolean = false;
+  isSuccess : boolean = false;
   validExtension = ["xml", "csv"];
 
-  constructor(private transectionService: TransectionService) { }
+  constructor(private transectionService: TransactionService) { }
 
   ngOnInit(): void {
     this.file.name = 'Choose File';
@@ -27,6 +28,7 @@ export class UploadFormComponent implements OnInit {
     }
     this.errorMessage = '';
     this.valid = true;
+    this.isSuccess = false;
     const file = e.target.files[0];
     console.log(file);
     this.file = file;
@@ -53,6 +55,9 @@ export class UploadFormComponent implements OnInit {
       const formData = new FormData();
       formData.append('file', this.file, this.file.name);
       const result = await this.transectionService.upload(formData).toPromise();
+      if(result){
+        this.isSuccess = true;
+      }
       console.log(result);
       
     } catch (ex: any) {

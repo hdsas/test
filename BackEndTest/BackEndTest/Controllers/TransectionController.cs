@@ -1,4 +1,5 @@
-﻿using BackEndTest.Models.Responses;
+﻿using BackEndTest.Models.Requests;
+using BackEndTest.Models.Responses;
 using BackEndTest.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -17,13 +18,17 @@ namespace BackEndTest.Controllers
         private readonly ILogger<TransectionController> _logger;
         private readonly ICsvService _csvService;
         private readonly IXmlService _xmlService;
+        private readonly ITransactionService _transactionService;
         private readonly string[] FileExtension = { ".CSV", ".XML" };
 
-        public TransectionController(ILogger<TransectionController> logger, ICsvService csvService, IXmlService xmlService)
+        public TransectionController(ILogger<TransectionController> logger, ICsvService csvService,
+            IXmlService xmlService,
+            ITransactionService transactionService)
         {
             _logger = logger;
             _csvService = csvService;
             _xmlService = xmlService;
+            _transactionService = transactionService;
         }
         public IActionResult Index()
         {
@@ -57,6 +62,13 @@ namespace BackEndTest.Controllers
             }
 
             return Ok(response);
+        }
+
+        [HttpPost("/Search")]
+        public IActionResult Search([FromBody] SearchRequest model)
+        {
+            var resule = _transactionService.Search(model);
+            return Ok(resule);
         }
     }
 }
