@@ -54,6 +54,7 @@ export class UploadFormComponent implements OnInit {
       formData.append('file', this.file, this.file.name);
       const result = await this.transectionService.upload(formData).toPromise();
       console.log(result);
+      
     } catch (ex: any) {
 
       if (ex.status === 400) {

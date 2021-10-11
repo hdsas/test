@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BackEndTest.Services
 {
-    public interface ICsvService
+    public interface IXmlService
     {
         UploadResponse ExtractData(IFormFile file);
     }

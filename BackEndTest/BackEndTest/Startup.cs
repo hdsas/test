@@ -38,6 +38,7 @@ namespace BackEndTest
             services.AddControllers();
 
             services.AddTransient<ICsvService, CsvService>();
+            services.AddTransient<IXmlService, XmlService>();
             services.AddTransient<ITransactionService, TransactionService>();
         }
 

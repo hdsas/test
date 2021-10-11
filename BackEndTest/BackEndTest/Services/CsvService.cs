@@ -1,4 +1,6 @@
-﻿using BackEndTest.Models;
+﻿using BackEndTest.Enums;
+using BackEndTest.Models;
+using BackEndTest.Models.Responses;
 using BackEndTest.RepositoryModels;
 using CsvHelper;
 using CsvHelper.Configuration;
@@ -20,11 +22,20 @@ namespace BackEndTest.Services
         {
             _transactionService = transactionService;
         }
-        public bool ExtractData(IFormFile file, out string errorMessage)
+        public UploadResponse ExtractData(IFormFile file)
         {
+            var response = new UploadResponse();
             var records = new List<Transaction>();
-            errorMessage = string.Empty;
+            var errorMessage = string.Empty;
             bool status = true;
+
+            List<string> csvStatus = new List<string>();
+
+            foreach (string name in Enum.GetNames(typeof(CSVStatus)))
+            {
+                csvStatus.Add(name);
+            }
+
             var config = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
                 Delimiter = ",",
@@ -48,6 +59,14 @@ namespace BackEndTest.Services
                         }
                     }
 
+
+
+                    if (!csvStatus.Contains(valueList[4]))
+                    {
+                        errorMessage = "Invalid Status";
+                        status = false;
+                    }
+
                     if (!status)
                         break;
 
@@ -66,9 +85,12 @@ namespace BackEndTest.Services
             }
 
             if (records.Any())
-                _transactionService.Adds(records);
+                response.Transactions = _transactionService.Adds(records);
 
-            return status;
+            response.IsValid = status;
+            response.ErrorMessage = errorMessage ;
+     
+            return response;
         }
 
 

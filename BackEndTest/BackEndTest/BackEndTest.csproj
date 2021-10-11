@@ -13,5 +13,11 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Schema\Schema.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 
 </Project>
