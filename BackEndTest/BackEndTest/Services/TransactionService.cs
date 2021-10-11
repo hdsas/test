@@ -63,10 +63,16 @@ namespace BackEndTest.Services
                 query = query.Where(t => t.Id == search.Id);
             }
 
-            if (search.Date.HasValue)
+            if (search.StartDate.HasValue)
             {
-                query = query.Where(t => t.TransectionDate.Date == search.Date.Value.Date);
+                query = query.Where(t => t.TransectionDate.Date > search.StartDate.Value.Date);
             }
+
+            if (search.EndDate.HasValue)
+            {
+                query = query.Where(t => t.TransectionDate.Date < search.EndDate.Value.Date);
+            }
+
 
             if (!string.IsNullOrWhiteSpace(search.StatusCode))
             {

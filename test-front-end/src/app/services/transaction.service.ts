@@ -12,11 +12,11 @@ export class TransactionService {
 
 
   upload(formData: any): Observable<any> {
-    return this.http.post(`${environment.apiUrl}upload`, formData);
+    return this.http.post(`${environment.apiUrl}transection/upload`, formData);
   }
 
   search(form:any):Observable<any>{
-     return this.http.post(`${environment.apiUrl}search`, form);
+     return this.http.post(`${environment.apiUrl}transection/search`, form);
   }
 
 }

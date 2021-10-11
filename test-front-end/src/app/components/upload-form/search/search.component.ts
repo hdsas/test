@@ -32,7 +32,8 @@ export class SearchComponent implements OnInit {
     const form: any = {
       id: e.form.value.id,
       statusCode: e.form.value.statusCode,
-      date: e.form.value?.date ? moment(e.form.value?.date).format("YYYY-MM-DD") : null
+      startDate: e.form.value?.startDate ? moment(e.form.value?.startDate ).format("YYYY-MM-DD") : null,
+      endDate: e.form.value?.endDate ? moment(e.form.value?.endDate ).format("YYYY-MM-DD") : null
     };
 
     this.result = await this.transactionService.search(form).toPromise();

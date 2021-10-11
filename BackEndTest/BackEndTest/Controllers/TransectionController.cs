@@ -11,8 +11,8 @@ using System.Threading.Tasks;
 
 namespace BackEndTest.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
-    [Route("[controller]")]
     public class TransectionController : Controller
     {
         private readonly ILogger<TransectionController> _logger;
@@ -35,7 +35,7 @@ namespace BackEndTest.Controllers
             return View();
         }
 
-        [HttpPost("/upload")]
+        [HttpPost("upload")]
         public IActionResult Upload()
         {
             var response = new UploadResponse();
@@ -64,7 +64,7 @@ namespace BackEndTest.Controllers
             return Ok(response);
         }
 
-        [HttpPost("/Search")]
+        [HttpPost("Search")]
         public IActionResult Search([FromBody] SearchRequest model)
         {
             var resule = _transactionService.Search(model);
